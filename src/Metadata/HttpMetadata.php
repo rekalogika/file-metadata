@@ -34,7 +34,9 @@ final class HttpMetadata extends AbstractMetadata implements
 
     public function getDate(): string
     {
-        return (new \DateTimeImmutable())->format(\DateTimeInterface::RFC7231);
+        return (new \DateTimeImmutable())
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->format('D, d M Y H:i:s \G\M\T');
     }
 
     #[\Override]
@@ -126,7 +128,7 @@ final class HttpMetadata extends AbstractMetadata implements
         return (new \DateTimeImmutable())
             ->setTimestamp((int) $lastModified)
             ->setTimezone(new \DateTimeZone('UTC'))
-            ->format(\DateTimeInterface::RFC7231);
+            ->format('D, d M Y H:i:s \G\M\T');
     }
 
     public function getETag(): ?string
